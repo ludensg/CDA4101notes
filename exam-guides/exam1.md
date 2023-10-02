@@ -11,7 +11,10 @@
     - [Causes and Implications](#causes-and-implications)
     - [Solutions and Strategies](#solutions-and-strategies)
   - [2. DRAM \& SRAM](#2-dram--sram)
+    - [Definitions and Differences](#definitions-and-differences)
+    - [Applications and Use-Cases](#applications-and-use-cases)
     - [2.a. Trade-Offs \& Concepts](#2a-trade-offs--concepts)
+    - [2.b. Comparison Table](#2b-comparison-table)
   - [3. Memory Hierarchy](#3-memory-hierarchy)
   - [4. Cache](#4-cache)
     - [4.a. Why do we need a cache?](#4a-why-do-we-need-a-cache)
@@ -76,13 +79,60 @@ By understanding and addressing the memory-performance gap, architects and devel
 
 
 ## 2. DRAM & SRAM
-- Definitions and differences
-- Applications and use-cases
+
+Dynamic Random Access Memory (DRAM) and Static Random Access Memory (SRAM) are two primary types of RAM used in computing systems. Each has its unique characteristics, advantages, and applications. This section provides an overview of both, highlighting their differences and use-cases.
+
+### Definitions and Differences
+
+- **DRAM (Dynamic Random Access Memory)**:
+  - **Definition**: A type of volatile (non-persistent) memory that stores each bit of data in a separate capacitor within an integrated circuit.
+  - **Characteristics**:
+    - **Refresh Required**: The capacitors leak charge over time, so they need to be refreshed periodically.
+    - **Slower Access Times**: Compared to SRAM, DRAM has slower access times.
+    - **Lower Cost**: Generally cheaper to produce than SRAM.
+    - **Higher Density**: Can store more data in the same amount of space compared to SRAM.
+
+- **SRAM (Static Random Access Memory)**:
+  - **Definition**: A type of volatile memory that uses bistable latching circuitry to store each bit.
+  - **Characteristics**:
+    - **No Refresh Required**: SRAM retains its data bits as long as power is supplied.
+    - **Faster Access Times**: Offers quicker data access compared to DRAM.
+    - **Higher Cost**: More expensive to produce due to its complexity.
+    - **Lower Density**: Takes up more space for the same amount of data storage compared to DRAM.
+
+### Applications and Use-Cases
+
+- **DRAM**:
+  - **Main Memory**: Often used as the primary memory in computing systems due to its cost-effectiveness and high storage capacity.
+  - **Graphics RAM**: Used in graphics cards because of the need for large amounts of memory.
+
+- **SRAM**:
+  - **Cache Memory**: Due to its fast access times, SRAM is commonly used for CPU cache.
+  - **On-Chip Memory**: Found on integrated circuits due to its speed.
 
 ### 2.a. Trade-Offs & Concepts
-- Speed vs. power consumption
-- Cost vs. capacity
-- Volatility and non-volatility
+
+- **Speed vs. Power Consumption**: SRAM is faster but consumes more power, especially when idle. DRAM is slower but is more power-efficient during idle periods.
+  
+- **Cost vs. Capacity**: DRAM offers more storage capacity for a lower cost, while SRAM, being faster, is more expensive to produce.
+  
+- **Volatility**: Both DRAM and SRAM are volatile, meaning they lose their data when power is turned off. However, SRAM retains its data as long as power is supplied, while DRAM needs to be refreshed periodically even when powered on.
+
+### 2.b. Comparison Table
+
+| Feature/Characteristic | DRAM                                      | SRAM                                      |
+|------------------------|-------------------------------------------|-------------------------------------------|
+| **Definition**         | Volatile memory using capacitors.         | Volatile memory using bistable latching circuitry. |
+| **Refresh Required**   | Yes, capacitors leak charge and need periodic refreshing. | No, retains data as long as power is supplied. |
+| **Access Times**       | Slower                                    | Faster                                    |
+| **Cost**               | Generally cheaper                         | More expensive due to complexity          |
+| **Density**            | Higher (more data in same space)          | Lower (takes up more space for same data) |
+| **Power Consumption**  | Consumes less power when idle.            | Consumes more power, especially when idle.|
+| **Main Use Cases**     | Main memory, Graphics RAM                 | CPU cache, On-Chip Memory                 |
+
+
+
+Understanding the differences between DRAM and SRAM, as well as their respective trade-offs, is crucial when designing or working with computer systems. The choice between them often depends on the specific needs and constraints of the application at hand.
 
 ## 3. Memory Hierarchy
 - Definition and importance
