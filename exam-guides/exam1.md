@@ -16,6 +16,9 @@
     - [2.a. Trade-Offs \& Concepts](#2a-trade-offs--concepts)
     - [2.b. Comparison Table](#2b-comparison-table)
   - [3. Memory Hierarchy](#3-memory-hierarchy)
+    - [Definition and Importance](#definition-and-importance)
+    - [Levels of Memory Hierarchy](#levels-of-memory-hierarchy)
+    - [Access Time and Cost at Each Level](#access-time-and-cost-at-each-level)
   - [4. Cache](#4-cache)
     - [4.a. Why do we need a cache?](#4a-why-do-we-need-a-cache)
     - [4.b. What is cache?](#4b-what-is-cache)
@@ -130,14 +133,64 @@ Dynamic Random Access Memory (DRAM) and Static Random Access Memory (SRAM) are t
 | **Power Consumption**  | Consumes less power when idle.            | Consumes more power, especially when idle.|
 | **Main Use Cases**     | Main memory, Graphics RAM                 | CPU cache, On-Chip Memory                 |
 
+| **Feature**     | **Speed/Delay**      | **Cost/GB**         | **Capacity**       |
+|-----------------|----------------------|---------------------|--------------------|
+| **Static RAM**  | Fastest/0.5-2.5ns    | $1,000’s            | Smallest           |
+| **Dynamic RAM** | Slow/50-70ns         | $10’s               | Large              |
+| **Hard disks**  | Slowest/5-20ms       | $0.1’s              | Largest            |
+
 
 
 Understanding the differences between DRAM and SRAM, as well as their respective trade-offs, is crucial when designing or working with computer systems. The choice between them often depends on the specific needs and constraints of the application at hand.
 
 ## 3. Memory Hierarchy
-- Definition and importance
-- Levels of memory hierarchy
-- Access time and cost at each level
+
+Memory hierarchy is a structured implementation of computer storage that uses multiple levels of memory to provide both high performance and cost-effective scalability. The idea behind the memory hierarchy is to bridge the gap between the processor speed and the slow memory speed by introducing faster, albeit smaller, memory types closer to the processor and larger, slower types further away.
+
+### Definition and Importance
+
+- **Memory Hierarchy**: A multi-level structure of different types of memory, organized based on speed and cost, with the goal of optimizing performance and cost.
+  
+- **Importance**: 
+  - Balances the speed of CPUs and the latency of memory.
+  - Provides an efficient way to manage and access data.
+  - Reduces the average time to access memory.
+
+### Levels of Memory Hierarchy
+
+1. **Registers**: 
+   - Located inside the CPU.
+   - Fastest and most expensive type of memory.
+   - Limited in size.
+
+2. **Cache Memory (L1, L2, L3)**:
+   - Located close to the CPU.
+   - Faster than main memory but slower than registers.
+   - Acts as a buffer between the CPU and main memory.
+
+3. **Main Memory (RAM)**:
+   - Where active processes reside.
+   - Slower than cache but faster than secondary storage.
+   - Volatile memory.
+
+4. **Secondary Storage (Hard Disk, SSD)**:
+   - Non-volatile storage.
+   - Slower than RAM but offers larger capacity.
+   - Stores data and programs not actively in use.
+
+5. **Tertiary Storage (Optical disks, Magnetic tapes)**:
+   - Used for archiving and backup.
+   - Slowest and cheapest per bit.
+   - Non-volatile.
+
+### Access Time and Cost at Each Level
+
+- As we move up the hierarchy (towards registers), access time decreases but cost per bit increases.
+- As we move down the hierarchy (towards tertiary storage), access time increases but the memory becomes cheaper and offers more capacity.
+
+Understanding the memory hierarchy is crucial for computer architects, programmers, and system designers. It plays a pivotal role in system performance, cost, and energy efficiency. By leveraging the strengths of each level, systems can achieve optimal performance while managing costs.
+
+![Comparison table for the memory hierarchy](imagesx1/memhierarchy.png)
 
 ## 4. Cache
 - Definition and purpose
