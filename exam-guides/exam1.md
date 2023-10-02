@@ -1,4 +1,35 @@
-# Computer Architecture Study Guide (CDA4150/5155)
+# Computer Architecture Exam 1 Study Guide (CDA4150/5155)
+
+# Table of Contents for Exam 1 Study Guide
+
+- [Computer Architecture Exam 1 Study Guide (CDA4150/5155)](#computer-architecture-exam-1-study-guide-cda41505155)
+- [Table of Contents for Exam 1 Study Guide](#table-of-contents-for-exam-1-study-guide)
+  - [1. Memory-performance gaps](#1-memory-performance-gaps)
+  - [2. DRAM \& SRAM](#2-dram--sram)
+    - [2.a. Trade-Offs \& Concepts](#2a-trade-offs--concepts)
+  - [3. Memory Hierarchy](#3-memory-hierarchy)
+  - [4. Cache](#4-cache)
+    - [4.a. Why do we need a cache?](#4a-why-do-we-need-a-cache)
+    - [4.b. What is cache?](#4b-what-is-cache)
+    - [4.c. Structure](#4c-structure)
+    - [4.d. How does it work?](#4d-how-does-it-work)
+    - [4.e. Operations and definitions](#4e-operations-and-definitions)
+    - [4.f. Comparisons of direct and associative cache](#4f-comparisons-of-direct-and-associative-cache)
+    - [4.g. Write hit and miss replacement policies](#4g-write-hit-and-miss-replacement-policies)
+    - [4.h. Performance with examples](#4h-performance-with-examples)
+    - [4.i. Types of misses](#4i-types-of-misses)
+    - [4.j. Multilevel caches (with examples)](#4j-multilevel-caches-with-examples)
+    - [4.k. Optimization (prioritizing read miss vs. hit miss)](#4k-optimization-prioritizing-read-miss-vs-hit-miss)
+  - [5. Locality](#5-locality)
+  - [6. Hits and Misses](#6-hits-and-misses)
+  - [7. Address \& Cache](#7-address--cache)
+  - [8. Block size \& cache](#8-block-size--cache)
+  - [9. Cache optimizations](#9-cache-optimizations)
+  - [10. Software: matrix multiply with register use/reuse](#10-software-matrix-multiply-with-register-usereuse)
+  - [11. Cache reuse, for matrix multiplication](#11-cache-reuse-for-matrix-multiplication)
+
+
+
 
 ## 1. Memory-performance gaps
 - Definition and significance
