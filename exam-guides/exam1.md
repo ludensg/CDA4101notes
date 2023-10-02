@@ -1,6 +1,6 @@
 # Computer Architecture Exam 1 Study Guide (CDA4150/5155)
 
-	*Infromation for this guide was sourced primarily from provided lecture slides, as well as from Hennessy and Patterson's Computer Architecture: A Quantitative Approach (6th Edition).*
+	*Information for this guide was sourced primarily from provided lecture slides, as well as from Hennessy and Patterson's Computer Architecture: A Quantitative Approach (6th Edition).*
 
 # Table of Contents for Exam 1 Study Guide
 
@@ -31,6 +31,7 @@
     - [4.i. Types of misses](#4i-types-of-misses)
     - [4.j. Multilevel caches (with examples)](#4j-multilevel-caches-with-examples)
     - [4.k. Optimization (prioritizing read miss vs. hit miss)](#4k-optimization-prioritizing-read-miss-vs-hit-miss)
+    - [4.l. Why Cache Works: Locality](#4l-why-cache-works-locality)
   - [5. Locality](#5-locality)
   - [6. Hits and Misses](#6-hits-and-misses)
   - [7. Address \& Cache](#7-address--cache)
@@ -193,52 +194,95 @@ Understanding the memory hierarchy is crucial for computer architects, programme
 ![Comparison table for the memory hierarchy](imagesx1/memhierarchy.png)
 
 ## 4. Cache
-- Definition and purpose
-- Structure and components
+
+Cache memory, often simply referred to as "cache," is a high-speed volatile computer memory that provides high-speed data access to the processor and stores frequently used computer programs, applications, and data. Cache memory provides faster data storage and access by storing instances of programs and data routinely accessed by the processor.
 
 ### 4.a. Why do we need a cache?
-- Speeding up memory access
-- Reducing memory-performance gap
-- Improving CPU efficiency
+
+- **Speed Up Memory Access**: Cache memory bridges the speed gap between the main memory and the CPU. By storing frequently accessed data, the CPU can avoid lengthy fetches from the slower main memory.
+  
+- **Reduce Memory-Performance Gap**: As discussed earlier, the disparity between memory speed and CPU speed can be mitigated with the use of cache memory.
+  
+- **Improve CPU Efficiency**: With faster access to data, the CPU spends less time waiting and more time processing, leading to better overall system performance.
 
 ### 4.b. What is cache?
-- Temporary storage between main memory and CPU
-- Types: L1, L2, L3
+
+- **Temporary Storage**: Cache is a smaller, faster type of memory that stores copies of frequently accessed data from main memory.
+  
+- **Types**: There are typically multiple levels of cache (L1, L2, L3) with L1 being the smallest and fastest, and L3 being the largest and slowest.
 
 ### 4.c. Structure
-- Cache lines/blocks
-- Tags, index, and offset
+
+- **Cache Lines/Blocks**: The smallest unit of data that can be transferred between cache and main memory.
+  
+- **Tags**: Used to determine if a particular block of data is in the cache.
+  
+- **Index**: Determines the cache line where the data should be placed or retrieved.
+  
+- **Offset**: Specifies the exact location of the data within the cache line.
 
 ### 4.d. How does it work?
-- Cache lookup process
-- Cache hit vs. cache miss
+
+- **Cache Lookup Process**: When the CPU needs to access data, it first checks if the data is in the cache. If it's a "hit", the data is retrieved from cache. If it's a "miss", the data is fetched from main memory.
+  
+- **Cache Hit vs. Cache Miss**: A cache hit means the requested data is in the cache, while a cache miss means it isn't and must be fetched from main memory.
+
+The subsequent subtopics delve deeper into the operations, definitions, comparisons, and intricacies of cache memory. Understanding cache is fundamental to grasping how modern computer systems achieve high performance.
+
 
 ### 4.e. Operations and definitions
-- Read and write operations
-- Direct-mapped, fully associative, and n-way set associative cache
+
+- **Read Operation**: Fetching data from the cache. If the data isn't present (cache miss), it's fetched from main memory and also stored in the cache for future access.
+  
+- **Write Operation**: Updating data in the cache. Depending on the write policy, changes might also be updated to main memory immediately or after some time.
 
 ### 4.f. Comparisons of direct and associative cache
-- Advantages and disadvantages
-- Up to 4-way associative cache
+
+- **Direct-Mapped Cache**: Each block of main memory maps to a single cache line. Simple but can lead to higher miss rates.
+  
+- **Fully Associative Cache**: A block of main memory can be placed in any cache line. Flexible but requires more complex hardware.
+  
+- **N-Way Set Associative Cache**: A compromise between direct-mapped and fully associative. Blocks of main memory map to a set of cache lines, typically 2, 4, or 8.
 
 ### 4.g. Write hit and miss replacement policies
-- Write-through vs. write-back
-- LRU, FIFO, random replacement
+
+- **Write-Through**: Data is written to both the cache and main memory. Ensures consistency but can be slower.
+  
+- **Write-Back**: Data is written only to the cache. Main memory is updated only when the cache block is replaced. Faster but can lead to inconsistencies if not managed properly.
 
 ### 4.h. Performance with examples
-- Cache hit ratio
-- Average memory access time
+
+- **Cache Hit Ratio**: The percentage of memory accesses that result in a cache hit. Higher is better.
+  
+- **Average Memory Access Time (AMAT)**: The average time taken to fetch data, considering both cache hits and misses.
 
 ### 4.i. Types of misses
-- Compulsory, capacity, and conflict misses
+
+- **Compulsory Miss**: The first access to a block will always result in a miss, as the data has never been in the cache.
+  
+- **Capacity Miss**: Occurs when the cache cannot contain all the blocks needed during program execution.
+  
+- **Conflict Miss**: Occurs in direct-mapped and set-associative caches when multiple blocks compete for the same cache line.
 
 ### 4.j. Multilevel caches (with examples)
-- L1, L2, L3 caches
-- Interactions and coherence
+
+- **L1, L2, L3 Caches**: Different levels of cache with varying sizes and speeds. L1 is smallest and fastest, directly connected to the CPU. L2 is larger and slower, and L3 is even larger and slower but can serve multiple cores.
 
 ### 4.k. Optimization (prioritizing read miss vs. hit miss)
-- Techniques and strategies
-- Impact on performance
+
+- **Read Miss**: When the data being read isn't in the cache. Often prioritized as it can stall the CPU.
+  
+- **Write Miss**: When the data being written isn't in the cache. Depending on the write policy, this might not be as critical as a read miss.
+
+### 4.l. Why Cache Works: Locality
+
+Cache memory is effective due to the principle of **locality**. Locality is the tendency of a processor to access the same set of memory locations repetitively over a short period of time. There are two main types of locality:
+
+- **Temporal Locality**: If an item is accessed, it's likely to be accessed again soon. This is why recently accessed data is stored in the cache.
+  
+- **Spatial Locality**: If an item is accessed, items whose addresses are close by are likely to be accessed soon. This is why blocks of data, rather than individual bytes, are fetched into the cache.
+
+Understanding and leveraging locality allows computer systems to predictively manage and cache data, leading to significant performance improvements.
 
 ## 5. Locality
 - Temporal and spatial locality
