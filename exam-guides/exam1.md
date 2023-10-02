@@ -1,10 +1,15 @@
 # Computer Architecture Exam 1 Study Guide (CDA4150/5155)
 
+	*Infromation for this guide was sourced primarily from provided lecture slides, as well as from Hennessy and Patterson's Computer Architecture: A Quantitative Approach (6th Edition).*
+
 # Table of Contents for Exam 1 Study Guide
 
 - [Computer Architecture Exam 1 Study Guide (CDA4150/5155)](#computer-architecture-exam-1-study-guide-cda41505155)
 - [Table of Contents for Exam 1 Study Guide](#table-of-contents-for-exam-1-study-guide)
   - [1. Memory-performance gaps](#1-memory-performance-gaps)
+    - [Definition and Significance](#definition-and-significance)
+    - [Causes and Implications](#causes-and-implications)
+    - [Solutions and Strategies](#solutions-and-strategies)
   - [2. DRAM \& SRAM](#2-dram--sram)
     - [2.a. Trade-Offs \& Concepts](#2a-trade-offs--concepts)
   - [3. Memory Hierarchy](#3-memory-hierarchy)
@@ -32,9 +37,43 @@
 
 
 ## 1. Memory-performance gaps
-- Definition and significance
-- Causes and implications
-- Solutions and strategies
+
+The memory-performance gap, often referred to as the "memory wall", describes the growing disparity between the speed of CPU operations and the latency of memory access. As CPUs have continued to advance at a rapid pace, memory speeds have not kept up, leading to this widening gap. This section delves into the causes, implications, and potential solutions to this challenge.
+
+![Diagram illustrating the memory-performance gap](imagesx1/memwall.png)
+
+
+### Definition and Significance
+
+- **Memory-Performance Gap**: The difference in growth rates between CPU processing speeds and memory access times. While CPU speeds have been doubling approximately every 18 months (following Moore's Law), memory latency has seen only modest improvements.
+  
+- **Significance**: As CPUs become faster, they often have to wait for data to be fetched from memory. This waiting period, or "stall", can significantly hamper the overall system performance, even if the CPU itself is highly efficient.
+
+### Causes and Implications
+- **Causes**:
+  - **Technological Limitations**: Physical constraints in DRAM technology that limit the rate of improvements.
+  - **Economic Factors**: The high cost of developing faster memory technologies can deter rapid advancements.
+  - **Power Consumption**: Faster memory often requires more power, leading to thermal challenges.
+
+- **Implications**:
+  - **Stalled CPU Cycles**: The CPU spends a significant amount of time waiting for data from memory, leading to underutilization of its capabilities.
+  - **Energy Inefficiency**: Waiting for memory consumes power without doing useful work, leading to wasted energy.
+  - **System Bottlenecks**: The overall system performance can be bottlenecked by memory latency, regardless of how fast the CPU is.
+
+### Solutions and Strategies
+
+- **Caching**: Using small amounts of faster memory (cache) to store frequently accessed data, reducing the need to fetch data from main memory.
+  
+- **Prefetching**: Predictively loading data into cache before it's needed by the CPU.
+  
+- **Memory-Level Parallelism**: Accessing memory in parallel to hide latency. This refers to the ability of a processor to issue multiple memory operations (like loads and stores) to different memory locations in parallel. Instead of waiting for one memory operation to complete before starting the next, MLP allows for several memory operations to be in progress at the same time, thereby hiding or reducing the perceived memory latency.
+  
+- **Improved DRAM Technologies**: Developing new memory technologies that can offer faster access times, such as DDR4, DDR5, and beyond.
+  
+- **Near Data Processing**: Moving computation closer to where data is stored, such as processing-in-memory (PIM) techniques.
+
+By understanding and addressing the memory-performance gap, architects and developers can design systems that make the most of both CPU and memory capabilities, leading to more efficient and performant computing systems.
+
 
 ## 2. DRAM & SRAM
 - Definitions and differences
