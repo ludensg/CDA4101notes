@@ -650,8 +650,11 @@ Direct mapping is a cache mapping technique where each block of main memory maps
 - **Given:**
 
 Cache size: 8KB
+
 Block size: 1KB
+
 Memory address: 000110101011
+
 
 
 - **Procedure**
@@ -659,8 +662,11 @@ Memory address: 000110101011
 **Identify Cache Parameters:**
 
 Cache size: 8KB
+
 Block size: 1KB
+
 Number of cache lines: 8KB / 1KB = 8 lines
+
 
 
 **Calculate Index:**
@@ -722,6 +728,7 @@ Remember, while direct mapping uses a deterministic approach to decide where a b
 **Given:**
 
 Cache with 4 lines
+
 Memory address: 11010111
 
 
