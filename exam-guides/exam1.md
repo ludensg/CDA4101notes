@@ -653,10 +653,10 @@ Find: (1) Physical Address bits split. (2) Tag directory size.
 
 - (1)
 
-<-----------------------------32 bits---------------------------->
-<---------12 bits-------><----8 bits----><---------12 bits------->
-<-----------Tag---------><--Line number-><-----Block Offset------>
-<----------------20 bits---------------->
+<-----------------------------32 bits----------------------------> <br />
+<---------12 bits-------><----8 bits----><---------12 bits-------> <br />
+<-----------Tag---------><--Line number-><-----Block Offset------> <br />
+<----------------20 bits----------------> <br />
 
 - (2) Tag Directory Size, is given by:
   - $\text{ Cache Lines} * \text{ B/L Offset}  = 2^{8} * 12 = 3072 \text{ bits}$
