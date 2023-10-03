@@ -375,7 +375,7 @@ In the context of cache memory, a "hit" refers to a successful data retrieval fr
 
 - **Average Memory Access Time (AMAT)**: Represents the average time taken to access memory, considering both hits and misses. Calculated as: 
 
-$\text{AMAT} = (\text{Hit Time} \times \text{Hit Rate}) + (\text{Miss Penalty} \times \text{Miss Rate})$
+$\text{AMAT} = \text{Hit Time} + (\text{Miss Penalty} \times \text{Miss Rate})$
 
 ### Implications
 
