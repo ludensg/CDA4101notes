@@ -628,7 +628,7 @@ Experimenting with different loop orders and blocking strategies can help in ide
 Direct mapping is a cache mapping technique where each block of main memory maps to a single cache line. The location in the cache is determined directly by the address of the main memory block.
 ### Example
 
-Find: 1. Physical Address bits split. 2. Tag directory size.
+Find: (1) Physical Address bits split. (2) Tag directory size.
 
 - **Given:**
 - Main Memory size: 4GB
@@ -650,7 +650,13 @@ Find: 1. Physical Address bits split. 2. Tag directory size.
 - Line number bits are given by:  
   - $\log_2(\text{ Cache Lines}) = \log_2(2^{8}) = 8 \text{ bits}$
 
+
+- (1)
+
 <-----------------------------32 bits---------------------------->
 <---------12 bits-------><----8 bits----><---------12 bits------->
 <-----------Tag---------><--Line number-><-----Block Offset------>
 <----------------20 bits---------------->
+
+- (2) Tag Directory Size, is given by:
+  - $\text{ Cache Lines} * \text{ B/L Offset}  = 2^{8} * 12 = 3072 \text{ bits}$
