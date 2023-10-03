@@ -648,33 +648,47 @@ Direct mapping is a cache mapping technique where each block of main memory maps
 ### Example
 
 - **Given:**
+
 Cache size: 8KB
 Block size: 1KB
 Memory address: 000110101011
 
+
 - **Procedure**
 
 **Identify Cache Parameters:**
+
 Cache size: 8KB
 Block size: 1KB
 Number of cache lines: 8KB / 1KB = 8 lines
 
+
 **Calculate Index:**
+
 With 8 lines, we need 3 bits for the index (since 2^3 = 8).
 Extract the 3 bits before the least significant bit (LSB) for block offset. In our example, the index bits from 000110101011 are 101.
 
+
 **Check Tag:**
+
 The remaining bits are the tag. So, the tag is 0001101.
 
+
 **Determine Hit or Miss:**
+
 If the tag in the cache line corresponding to index 101 matches 0001101 and the line is valid, it's a hit.
 Otherwise, it's a miss.
 
+
 **Update Cache:**
+
 For a miss, fetch the block from main memory and place it in cache line 101, updating the tag to 0001101.
 
+
 **Record Results:**
+
 Note down the result (hit or miss) and any changes to the cache's content.
+
 
 ## Associative Mapping
 
@@ -706,27 +720,42 @@ Remember, while direct mapping uses a deterministic approach to decide where a b
 ### Example
 
 **Given:**
+
 Cache with 4 lines
 Memory address: 11010111
 
+
 - **Procedure:**
+
 Identify Cache Parameters:
 
+
 **Cache has 4 lines.**
+
 No index is needed for fully associative mapping.
 
+
 **Check All Tags:**
+
 Compare the tag of the memory address 11010111 with the tags of all cache lines.
 
+
 **Determine Hit or Miss:**
+
 If any line has a matching tag and is valid, it's a hit.
 If no match is found, it's a miss.
 
+
 **Choose Replacement Line:**
+
 For a miss, decide which cache line to replace. Let's use the LRU (Least Recently Used) policy. If line 2 is the least recently used, it will be replaced.
 
+
 **Update Cache:**
+
 Replace the content of line 2 with the new block from main memory and update its tag to 11010111.
 
+
 **Record Results:**
+
 Note down the result (hit or miss) and any changes to the cache's content.
