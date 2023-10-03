@@ -68,7 +68,11 @@
     - [Cache Reuse in Matrix Multiplication](#cache-reuse-in-matrix-multiplication)
     - [Blocking for Cache Reuse](#blocking-for-cache-reuse)
     - [Impact on Performance](#impact-on-performance)
-  - [12. Mapping Exercises](#12-mapping-exercises)
+  - [12. Register Reuse for Matrix Multiplication](#12-register-reuse-for-matrix-multiplication)
+    - [How it works:](#how-it-works)
+    - [Benefits:](#benefits)
+    - [Challenges:](#challenges-2)
+  - [13. Mapping Exercises](#13-mapping-exercises)
     - [Direct Mapping](#direct-mapping)
       - [Example](#example)
     - [Associative Mapping](#associative-mapping)
@@ -583,18 +587,55 @@ Matrix multiplication, especially for large matrices, can be computationally int
 
 ### Loop Order Variations
 
-1. **Standard (ijk)**:
+1. **ijk**:
    - The most straightforward method.
    - Nested loops iterate over i, then j, then k.
    - Can lead to cache misses if not optimized.
+   - ijk (& jik): 2 loads, 0 stores. 
+   - misses/iter = 1.25
+
+    ```
+    for (i=0; i<n; i++) {
+        for (j=0; j<n; j++) {
+            sum = 0.0;
+            for (k=0; k<n; k++)
+                sum += a[i][k] * b[k][j];
+                c[i][j] = sum;
+        }
+    }
+    ```
 
 2. **kij**:
    - Outer loop iterates over k, then i, then j.
    - Improves cache reuse for matrix B.
+   - ijk (& jik): 2 loads, 1 stores. 
+   - misses/iter = 0.5
+  
+    ```
+    for (k=0; k<n; k++) {
+        for (i=0; i<n; i++) {
+            r = a[i][k];
+            for (j=0; j<n; j++)
+                c[i][j] += r * b[k][j];
+        }
+    }
+    ```
 
-3. **jik**:
+3. **jki**:
    - Outer loop iterates over j, then i, then k.
    - Improves cache reuse for matrix A.
+   - ijk (& jik): 2 loads, 1 stores. 
+   - misses/iter = 2.0
+
+    ```
+    for (j=0; j<n; j++) {
+        for (k=0; k<n; k++) {
+            r = b[k][j];
+                for (i=0; i<n; i++)
+                    c[i][j] += a[i][k] * r;
+                }
+    }
+    ```
 
 ### Cache Reuse in Matrix Multiplication
 
@@ -623,7 +664,44 @@ Different loop orders and blocking strategies can have varying impacts on perfor
 Experimenting with different loop orders and blocking strategies can help in identifying the most efficient approach for a given system and cache architecture.
 
 
-## 12. Mapping Exercises
+## 12. Register Reuse for Matrix Multiplication
+
+Register reuse refers to the technique of maximizing the use of fast, on-chip registers to store intermediate results and data elements during computation. By reusing data that's already in registers, we can reduce the number of slow memory accesses, which can be a major bottleneck in matrix multiplication.
+
+### How it works:
+
+1. **Loading Data**: Instead of loading data elements from memory for every single operation, load them once into registers and reuse them for multiple operations.
+2. **Intermediate Results**: Store intermediate results in registers as long as possible before writing them back to memory. This reduces the number of write-back operations.
+3. **Blocking**: Divide the matrices into smaller blocks or tiles that fit into the cache. Then, perform the multiplication on these smaller blocks. This ensures that most of the data needed for the block multiplication is in the fast cache memory, reducing the need to access the slower main memory.
+4. **Loop Unrolling**: This is a technique where the number of iterations of a loop is increased by performing more operations in a single loop iteration. This can increase the opportunities for register reuse as more operations can be performed with the data already loaded into registers.
+
+### Benefits:
+
+- **Performance**: Register reuse can significantly speed up matrix multiplication by reducing the number of memory accesses.
+- **Energy Efficiency**: Memory accesses, especially to main memory, consume a lot of energy. By reducing the number of memory accesses, we can also reduce the energy consumption of the matrix multiplication operation.
+
+### Challenges:
+
+- **Complexity**: Implementing register reuse, especially with techniques like blocking and loop unrolling, can make the matrix multiplication code more complex.
+- **Portability**: The optimal block size or the number of registers to use can be architecture-specific. This means that code optimized for one architecture might not be optimal for another.
+
+```
+function matrix_multiply(A, B, C, block_size):
+    N = len(A)
+    for i = 0 to N step block_size:
+        for j = 0 to N step block_size:
+            for k = 0 to N step block_size:
+                for ii = i to i + block_size:
+                    for jj = j to j + block_size:
+                        register sum = 0
+                        for kk = k to k + block_size:
+                            sum += A[ii][kk] * B[kk][jj]
+                        C[ii][jj] += sum
+```
+
+
+
+## 13. Mapping Exercises
 
 ### Direct Mapping
 
