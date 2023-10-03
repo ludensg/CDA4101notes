@@ -69,8 +69,10 @@
     - [Blocking for Cache Reuse](#blocking-for-cache-reuse)
     - [Impact on Performance](#impact-on-performance)
   - [12. Mapping Exercises](#12-mapping-exercises)
-  - [Direct Mapping](#direct-mapping)
-    - [Example](#example)
+    - [Direct Mapping](#direct-mapping)
+      - [Example](#example)
+    - [Associative Mapping](#associative-mapping)
+      - [Example](#example-1)
 
 
 
@@ -623,10 +625,10 @@ Experimenting with different loop orders and blocking strategies can help in ide
 
 ## 12. Mapping Exercises
 
-## Direct Mapping
+### Direct Mapping
 
 Direct mapping is a cache mapping technique where each block of main memory maps to a single cache line. The location in the cache is determined directly by the address of the main memory block.
-### Example
+#### Example
 
 Find: (1) Physical Address bits split. (2) Tag directory size.
 
@@ -662,3 +664,42 @@ Find: (1) Physical Address bits split. (2) Tag directory size.
 
 - (2) Tag Directory Size, is given by:
   - $\text{ Cache Lines} * \text{ B/L Offset}  = 2^{8} * 12 = 3072 \text{ bits}$
+
+
+### Associative Mapping
+
+Associative mapping, or fully associative mapping, allows a block of main memory to be placed in any cache line. The cache controller checks all lines for a match.
+#### Example
+
+Find: (1) Physical Address bits split. (2) Tag directory size.
+
+- **Given:**
+- Main Memory size: 4GB
+- Cache size: 1MB
+- Block size: 4KB
+- Word size: 1 Byte
+  
+- **Solution:**
+- Physical Address bits are given by the main memory size:
+  - $\log_2(\text{ Main Memory Size}) = \log_2(2^{32}) = 32 \text{ bits}$
+- The block offset bits are given by the block size: 
+  - $\log_2(\text{ Block Size}) = \log_2(2^{12}) = 12 \text{ bits}$
+- The amount of blocks in main memory are given by: 
+  - $\text{ Main Memory} / \text{ Block Size} = 2^{32} / 2^{12} = 2^{20}$
+- The block number bits are given by:
+  - $\log_2(\text{ Cache Size}) = \log_2(2^{20}) = 20 \text{ bits}$
+- The tag bits are equal to the block number bits (because of associative mapping )
+- Line number bits are given by:  
+  - $\log_2(\text{ Cache Lines}) = \log_2(2^{8}) = 8 \text{ bits}$
+
+
+- (1)
+
+```
+<-----------------------------32 bits----------------------------> 
+<----------------20 bits----------------> <---------12 bits-------> 
+<------------------Tag------------------> <-----Block Offset------> 
+```
+
+- (2) Tag Directory Size, is given by:
+  - $\text{ Cache Lines} * \text{ Tag bits}  = 2^{8} * 20 = 5120 \text{ bits}$
