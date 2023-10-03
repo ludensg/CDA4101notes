@@ -68,6 +68,9 @@
     - [Cache Reuse in Matrix Multiplication](#cache-reuse-in-matrix-multiplication)
     - [Blocking for Cache Reuse](#blocking-for-cache-reuse)
     - [Impact on Performance](#impact-on-performance)
+  - [12. Mapping Exercises](#12-mapping-exercises)
+  - [Direct Mapping](#direct-mapping)
+    - [Example](#example)
 
 
 
@@ -623,146 +626,31 @@ Experimenting with different loop orders and blocking strategies can help in ide
 ## Direct Mapping
 
 Direct mapping is a cache mapping technique where each block of main memory maps to a single cache line. The location in the cache is determined directly by the address of the main memory block.
-
-### Procedure for Solving Direct Mapping Examples:
-
-1. **Identify Cache Parameters**:
-   - Determine the size of the cache, block size, and number of cache lines.
-
-2. **Calculate Index**:
-   - Extract the index bits from the memory address. This determines the cache line where the block will be placed.
-
-3. **Check Tag**:
-   - Compare the tag of the memory address with the tag stored in the identified cache line.
-
-4. **Determine Hit or Miss**:
-   - If the tags match and the line is valid, it's a cache hit.
-   - If not, it's a cache miss, and the block is fetched from main memory and placed in the cache.
-
-5. **Update Cache**:
-   - For cache misses, update the cache line with the new block and modify the tag.
-
-6. **Record Results**:
-   - Note down whether each memory access resulted in a hit or miss and any changes to the cache's content.
-
 ### Example
+
+Find: 1. Physical Address bits split. 2. Tag directory size.
 
 - **Given:**
+- Main Memory size: 4GB
+- Cache size: 1MB
+- Block size: 4KB
+- Word size: 1 Byte
+  
+- **Solution:**
+- Physical Address bits are given by the main memory size:
+  - $\log_2(\text{ Main Memory Size}) = \log_2(2^{32}) = 32 \text{ bits}$
+- The block offset bits are given by the block size: 
+  - $\log_2(\text{ Block Size}) = \log_2(2^{12}) = 12 \text{ bits}$
+- The amount of blocks in main memory are given by: 
+  - $\text{ Main Memory} / \text{ Block Size} = 2^{32} / 2^{12} = 2^{20}$
+- The block number bits are given by:
+  - $\log_2(\text{ Cache Size}) = \log_2(2^{20}) = 20 \text{ bits}$
+- The amount of cache lines is given by:
+  - $\text{ Cache Size} / \text{ Block Size} = 2^{20} / 2^{12} = 2^{8}$
+- Line number bits are given by:  
+  - $\log_2(\text{ Cache Lines}) = \log_2(2^{8}) = 8 \text{ bits}$
 
-Cache size: 8KB
-
-Block size: 1KB
-
-Memory address: 000110101011
-
-
-
-- **Procedure**
-
-**Identify Cache Parameters:**
-
-Cache size: 8KB
-
-Block size: 1KB
-
-Number of cache lines: 8KB / 1KB = 8 lines
-
-
-
-**Calculate Index:**
-
-With 8 lines, we need 3 bits for the index (since 2^3 = 8).
-Extract the 3 bits before the least significant bit (LSB) for block offset. In our example, the index bits from 000110101011 are 101.
-
-
-**Check Tag:**
-
-The remaining bits are the tag. So, the tag is 0001101.
-
-
-**Determine Hit or Miss:**
-
-If the tag in the cache line corresponding to index 101 matches 0001101 and the line is valid, it's a hit.
-Otherwise, it's a miss.
-
-
-**Update Cache:**
-
-For a miss, fetch the block from main memory and place it in cache line 101, updating the tag to 0001101.
-
-
-**Record Results:**
-
-Note down the result (hit or miss) and any changes to the cache's content.
-
-
-## Associative Mapping
-
-Associative mapping, or fully associative mapping, allows a block of main memory to be placed in any cache line. The cache controller checks all lines for a match.
-
-### Procedure for Solving Associative Mapping Examples:
-
-1. **Identify Cache Parameters**:
-   - Determine the size of the cache, block size, and number of cache lines.
-
-2. **Check All Tags**:
-   - Compare the tag of the memory address with the tags of all cache lines.
-
-3. **Determine Hit or Miss**:
-   - If any line has a matching tag and is valid, it's a cache hit.
-   - If no match is found, it's a cache miss.
-
-4. **Choose Replacement Line**:
-   - For cache misses, decide which cache line to replace. This decision is based on a replacement policy (e.g., LRU, FIFO).
-
-5. **Update Cache**:
-   - Replace the chosen cache line with the new block from main memory and update the tag.
-
-6. **Record Results**:
-   - Note down whether each memory access resulted in a hit or miss and any changes to the cache's content.
-
-Remember, while direct mapping uses a deterministic approach to decide where a block goes in the cache, associative mapping requires searching through the cache to find a block or decide where to place it.
-
-### Example
-
-**Given:**
-
-Cache with 4 lines
-
-Memory address: 11010111
-
-
-- **Procedure:**
-
-Identify Cache Parameters:
-
-
-**Cache has 4 lines.**
-
-No index is needed for fully associative mapping.
-
-
-**Check All Tags:**
-
-Compare the tag of the memory address 11010111 with the tags of all cache lines.
-
-
-**Determine Hit or Miss:**
-
-If any line has a matching tag and is valid, it's a hit.
-If no match is found, it's a miss.
-
-
-**Choose Replacement Line:**
-
-For a miss, decide which cache line to replace. Let's use the LRU (Least Recently Used) policy. If line 2 is the least recently used, it will be replaced.
-
-
-**Update Cache:**
-
-Replace the content of line 2 with the new block from main memory and update its tag to 11010111.
-
-
-**Record Results:**
-
-Note down the result (hit or miss) and any changes to the cache's content.
+<-----------------------------32 bits---------------------------->
+<---------12 bits-------><----8 bits----><---------12 bits------->
+<-----------Tag---------><--Line number-><-----Block Offset------>
+<----------------20 bits---------------->
